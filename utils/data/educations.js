@@ -1,9 +1,9 @@
 export const educations = [
   {
     id: 1,
-    title: "Bachelor Degree",
+    title: "Bachelor Degree (Information Technology)",
     duration: "2023 - Present",
-    institution: "ABV-IIITM Gwalior is Atal Bihari Vajpayee Indian Institute of Information Technology and Management Gwalior",
+    institution: "Atal Bihari Vajpayee Indian Institute of Information Technology and Management Gwalior",
   },
   {
     id: 2,
