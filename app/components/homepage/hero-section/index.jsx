@@ -18,6 +18,9 @@ function HeroSection() {
   const dots = useRef([]); // Ref to store dots
 
   useEffect(() => {
+    // Only run canvas effects on desktop
+    if (window.innerWidth <= 768) return;
+
     const canvas = canvasRef.current;
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
@@ -97,7 +100,7 @@ function HeroSection() {
       <div ref={bannerRef} className="grid grid-cols-1 lg:grid-cols-2 lg:gap-12 gap-y-8">
         <canvas
           ref={canvasRef}
-          className="absolute bg-transparent"
+          className="absolute bg-transparent hidden md:block"
           style={{ pointerEvents: "none",  height:'100%'}}
         ></canvas>
 
