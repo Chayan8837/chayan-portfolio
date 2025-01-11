@@ -18,4 +18,12 @@ module.exports = {
       },
     ],
   },
+  webpack: (config) => {
+    // Remove specific plugins
+    config.plugins = config.plugins.filter(
+      (plugin) => plugin.constructor.name !== 'SomePluginName'
+    );
+
+    return config;
+  },
 }
