@@ -15,17 +15,16 @@ function HeroSection() {
   const canvasRef = useRef(null);
   const bannerRef = useRef(null);
   const ctxRef = useRef(null);
-  const dots = useRef([]); // Ref to store dots
+  const dots = useRef([]); 
 
   useEffect(() => {
-    // Only run canvas effects on desktop
     if (window.innerWidth <= 768) return;
 
     const canvas = canvasRef.current;
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
     const ctx = canvas.getContext("2d");
-    ctxRef.current = ctx; // Store context for use in mouse events
+    ctxRef.current = ctx; 
 
     const arrayColors = ['#eee', '#545454', '#596d91', '#bb5a68'];
     for (let index = 0; index < 50; index++) {
@@ -79,7 +78,6 @@ function HeroSection() {
     bannerRef.current.addEventListener('mousemove', handleMouseMove);
     bannerRef.current.addEventListener('mouseout', handleMouseOut);
 
-    // Clean up event listeners on unmount
     return () => {
       bannerRef.current.removeEventListener('mousemove', handleMouseMove);
       bannerRef.current.removeEventListener('mouseout', handleMouseOut);
