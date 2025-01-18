@@ -8,12 +8,14 @@ import "./css/globals.scss";
 import ScrollToTop from "./components/helper/scroll-to-top";
 import Cursor from "./components/Cursor";
 import SideNavbar from "./components/SideNavbar";
+import { personalData } from "@/utils/data/personal-data";
 
 export const metadata = {
   title: "Portfolio of CHAYAN DAS - Software Developer",
   description:
-    "This is the portfolio of CHAYAN DAS. I am a full stack developer and a self taught developer. I love to learn new things and I am always open to collaborating with others. I am a quick learner and I am always looking for new challenges.",
-};
+    "This is the portfolio of CHAYAN DAS. A full stack developer and a self taught developer, love to learn new things and  always open to collaborating with others.  A quick learner and  always looking for new challenges.",
+  image:`${personalData.profile}`
+  };
 
 export default function RootLayout({ children }) {
   return (
