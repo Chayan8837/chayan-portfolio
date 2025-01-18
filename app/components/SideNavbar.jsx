@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { HomeIcon, PencilIcon, CalendarIcon, MailIcon, MoonIcon, SunIcon, Phone, FileText, User,Dumbbell } from 'lucide-react'
-import {contactsData} from "@/utils/data/contactsData"
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { HomeIcon, PencilIcon, CalendarIcon, MailIcon, MoonIcon, SunIcon, Phone, FileText, User, Dumbbell } from 'lucide-react';
+import { contactsData } from "@/utils/data/contactsData";
 
+// Define icons
 const Icons = {
-  skills:Dumbbell,
+  skills: Dumbbell,
   phone: Phone,
   fileText: FileText,
   user: User,
@@ -40,13 +41,13 @@ const Icons = {
   ),
 }
 
+// Data for navbar and social links
 const DATA = {
   navbar: [
     { href: "#", icon: "home", label: "Home" },
     { href: "#projects", icon: "fileText", label: "Projects" },
     { href: "#skills", icon: "skills", label: "Skills" },
     { href: "#contact", icon: "phone", label: "Contact" },
-
   ],
   contact: {
     social: [
@@ -56,10 +57,9 @@ const DATA = {
       { name: "Email", url: `${contactsData.email}`, icon: "email" },
     ],
   },
- 
-
 }
 
+// DockItem Component for each link
 const DockItem = ({ icon: Icon, label, href }) => {
   const [isHovered, setIsHovered] = useState(false)
 
@@ -71,7 +71,7 @@ const DockItem = ({ icon: Icon, label, href }) => {
     >
       <motion.a
         href={href}
-        className="flex h-12 w-12 items-center justify-center rounded-full text-white  transition-colors hover:bg-white/20"
+        className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20"
         whileHover={{ scale: 1.2 }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
       >
@@ -93,38 +93,41 @@ const DockItem = ({ icon: Icon, label, href }) => {
   )
 }
 
+// Divider Component
 const Divider = () => (
   <div className="mx-1 h-px w-8 bg-white/50" />
 )
 
-// const ModeToggle = () => {
-//   const [isDark, setIsDark] = useState(false)
+// SideNavbar Component
+const SideNavbar = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
-//   const toggleMode = () => {
-//     setIsDark(!isDark)
-//     // In a real application, you would apply the theme change here
-//   }
+  const scrollThreshold = 50; // Set the threshold for scrolling
 
-//   return (
-//     <motion.button
-//       onClick={toggleMode}
-//       className="flex h-12 w-12 items-center justify-center rounded-full  text-white  transition-colors hover:bg-white/20"
-//       whileHover={{ scale: 1.2 }}
-//       transition={{ type: "spring", stiffness: 400, damping: 17 }}
-//     >
-//       {isDark ? <SunIcon className="h-6 w-6" /> : <MoonIcon className="h-6 w-6" />}
-//     </motion.button>
-//   )
-// }
+  // Track scroll position
+  const handleScroll = () => {
+    if (typeof window !== "undefined") {
+      if (window.scrollY > scrollThreshold ) {
+        setIsVisible(true); 
+      } else {
+        setIsVisible(false);
+      }
+      setLastScrollY(window.scrollY); 
+    }
+  };
 
- function SideNavbar() {
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
-    <div className=" flex fixed md:h-full ml-4 flex-row  items-center justify-center z-[100] ">
-
+    <div className={`flex fixed md:h-full ml-4 flex-row items-center justify-center z-[100] transition-all duration-300`}>
       <motion.ul
-        className="flex flex-col items-center space-y-1 rounded-2xl bg-black/20 p-2 backdrop-blur-md border border-[#7790eaa0] "
+        className={`flex flex-col items-center space-y-1 rounded-2xl bg-black/20 p-2 backdrop-blur-md border border-[#7790eaa0] ${isVisible ? 'opacity-100' : 'opacity-0'}`}
         initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
+        animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         {DATA.navbar.map((item) => (
@@ -134,14 +137,9 @@ const Divider = () => (
         {DATA.contact.social.map((item) => (
           <DockItem key={item.name} icon={Icons[item.icon]} label={item.name} href={item.url} />
         ))}
-      
-      
-    
-      
-       
       </motion.ul>
     </div>
-  )
-}
+  );
+};
 
 export default SideNavbar;
