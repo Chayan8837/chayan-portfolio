@@ -176,6 +176,8 @@ function HeroSection() {
               role="button"
               target="_blank"
               href={personalData.resume}
+              download
+              rel="noopener noreferrer"
             >
               <span>Get Resume</span>
               <MdDownload size={16} />
