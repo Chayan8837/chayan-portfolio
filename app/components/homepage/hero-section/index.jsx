@@ -10,6 +10,7 @@ import { FaFacebook, FaTwitterSquare } from "react-icons/fa";
 import { MdDownload } from "react-icons/md";
 import { RiContactsFill } from "react-icons/ri";
 import { SiLeetcode } from "react-icons/si";
+import { Typewriter } from 'react-simple-typewriter';
 
 function HeroSection() {
   const canvasRef = useRef(null);
@@ -107,7 +108,18 @@ function HeroSection() {
             Hello, <br />
             This is <span className="text-pink-500">{personalData.name}</span>,
             I'm a Professional{" "}
-            <span className="text-[#16f2b3]">{personalData.designation}</span>.
+            <br/>
+            <span className="text-[#16f2b3]">
+              
+          <Typewriter 
+        words={personalData.designation} 
+        loop={true} 
+        cursor 
+        cursorStyle="_" 
+        typeSpeed={70} 
+        deleteSpeed={50} 
+        delaySpeed={1000} 
+      /></span>.
           </h1>
 
           <div className="my-12 flex items-center gap-5">
